@@ -1,0 +1,13 @@
+env: development
+debug: true
+region: ap-northeast-1
+sqs:
+  url: https://XxxxxxxxxX.execute-api.ap-northeast-1.amazonaws.com/dev/health
+  sqsurl: https://sqs.ap-northeast-1.amazonaws.com/XxxxxxxxxxxX/fictionbase-dev-SQSQueue-XxxxxxxxxxxxX
+cloudwatch:
+  url: https://XxxxxxxxxX.execute-api.ap-northeast-1.amazonaws.com/dev/health
+externalMonitoring:
+  http: https://example.com
+slack:
+  token: XxxX-XxxxxxxxxX-XxxxxxxxxxX-XxxxxxxxxxxX-XxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxX
+  channel: "#seike460"
