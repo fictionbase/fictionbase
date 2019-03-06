@@ -12,3 +12,4 @@
 *.out
 
 fictionbase.yml
+go.sum
