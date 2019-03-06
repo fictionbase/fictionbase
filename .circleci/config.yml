@@ -11,7 +11,14 @@ jobs:
     working_directory: /go/src/github.com/lictionbase/fictionbase
     steps:
       - checkout
+      - restore_cache:
+          keys:
+            - go-{{ checksum "go.mod" }}
       - run: go get -u golang.org/x/lint/golint github.com/haya14busa/goverage
+      - save_cache:
+          key: go-{{ checksum "go.mod" }}
+          paths:
+            - vendor
       - run: golint ./...
       - run: go vet ./...
       - run: goverage -v -coverprofile=coverage.out ./...
