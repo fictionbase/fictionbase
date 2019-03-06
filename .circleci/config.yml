@@ -16,7 +16,7 @@ jobs:
       - run: go get -u golang.org/x/lint/golint github.com/haya14busa/goverage
       - save_cache:
           key: go-{{ checksum "go.mod" }}
-					paths:
+          paths:
             - cache
       - run: golint ./...
       - run: go vet ./...
