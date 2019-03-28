@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/fictionbase/agent"
 	"github.com/fictionbase/fictionbase"
 	ps "github.com/mitchellh/go-ps"
 )
@@ -16,7 +15,7 @@ type FictionBase struct {
 
 // Processes struct
 type Processes struct {
-	agent.MessageBase
+	fictionbase.MessageBase
 	process string
 	exists  bool
 }
@@ -36,7 +35,7 @@ func (fb *FictionBase) Run() {
 		fb.Message.process = "httpd"
 		fb.Message.exists = false
 		for _, process := range pss {
-			if process == fb.Message.process {
+			if process.Executable() == fb.Message.process {
 				fb.Message.exists = true
 			}
 		}

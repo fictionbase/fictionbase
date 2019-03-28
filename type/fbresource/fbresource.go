@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/fictionbase/agent"
 	"github.com/fictionbase/fictionbase"
 	"github.com/shirou/gopsutil/cpu"
 	"github.com/shirou/gopsutil/disk"
@@ -20,7 +19,7 @@ type FictionBase struct {
 
 // Resources struct
 type Resources struct {
-	agent.MessageBase
+	fictionbase.MessageBase
 	Memory  *mem.VirtualMemoryStat `json:"memory"`
 	CPU     []cpu.InfoStat         `json:"cpu"`
 	LoadAvg *load.AvgStat          `json:"load_avg"`
