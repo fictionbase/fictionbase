@@ -5,7 +5,8 @@ go 1.12
 require (
 	github.com/BurntSushi/toml v0.3.1 // indirect
 	github.com/StackExchange/wmi v0.0.0-20181212234831-e0a55b97c705 // indirect
-	github.com/aws/aws-sdk-go v1.17.6
+	github.com/aws/aws-sdk-go v1.17.9
+	github.com/fictionbase/agent v0.0.0-20190324093400-b2eacd82b638
 	github.com/go-ole/go-ole v1.2.4 // indirect
 	github.com/gorilla/websocket v1.4.0 // indirect
 	github.com/lusis/go-slackbot v0.0.0-20180109053408-401027ccfef5 // indirect

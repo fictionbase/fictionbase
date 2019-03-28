@@ -2,9 +2,10 @@ package fbprocess
 
 import (
 	"fmt"
-	"os"
 	"time"
 
+	"github.com/fictionbase/agent"
+	"github.com/fictionbase/fictionbase"
 	ps "github.com/mitchellh/go-ps"
 )
 
@@ -15,19 +16,33 @@ type FictionBase struct {
 
 // Processes struct
 type Processes struct {
-	TypeKey    string    `json:"type_key"`
-	StorageKey string    `json:"storage_key"`
-	TimeKey    time.Time `json:"time_key"`
-	process    string
+	agent.MessageBase
+	process string
+	exists  bool
 }
 
 // Run GetResource And Send SQS
 func (fb *FictionBase) Run() {
-	pss, err := ps.Processes()
-	for i, j := range pss {
-		fmt.Println(i)
-		fmt.Println(j)
+	fb.Message.TypeKey = "fbprocess"
+	fb.Message.StorageKey = "cloudwatch"
+	for {
+		time.Sleep(1 * time.Second)
+		pss, err := ps.Processes()
+		if err != nil {
+			fmt.Println(err)
+			continue
+		}
+		// @TODO from config
+		fb.Message.process = "httpd"
+		fb.Message.exists = false
+		for _, process := range pss {
+			if process == fb.Message.process {
+				fb.Message.exists = true
+			}
+		}
+		err = fictionbase.SendFictionbaseMessage(fb)
+		if err != nil {
+			fmt.Println(err)
+		}
 	}
-	fmt.Println(err)
-	os.Exit(0)
 }
