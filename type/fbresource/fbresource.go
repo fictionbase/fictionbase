@@ -63,7 +63,7 @@ func (fb *FictionBase) Run() {
 			fmt.Println(err)
 			fb.Message.Disk = nil
 		}
-		// Set TimeC
+		// Set Time
 		fb.Message.TimeKey = time.Now()
 		err = fictionbase.SendFictionbaseMessage(fb)
 		if err != nil {
