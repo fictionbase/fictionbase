@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/fictionbase/agent"
 	"github.com/fictionbase/fictionbase"
 	"github.com/shirou/gopsutil/cpu"
 	"github.com/shirou/gopsutil/disk"
@@ -19,20 +20,18 @@ type FictionBase struct {
 
 // Resources struct
 type Resources struct {
-	TypeKey    string                 `json:"type_key"`
-	StorageKey string                 `json:"storage_key"`
-	TimeKey    time.Time              `json:"time_key"`
-	Memory     *mem.VirtualMemoryStat `json:"memory"`
-	CPU        []cpu.InfoStat         `json:"cpu"`
-	LoadAvg    *load.AvgStat          `json:"load_avg"`
-	Host       *host.InfoStat         `json:"host"`
-	Disk       *disk.UsageStat        `json:"disk"`
+	agent.MessageBase
+	Memory  *mem.VirtualMemoryStat `json:"memory"`
+	CPU     []cpu.InfoStat         `json:"cpu"`
+	LoadAvg *load.AvgStat          `json:"load_avg"`
+	Host    *host.InfoStat         `json:"host"`
+	Disk    *disk.UsageStat        `json:"disk"`
 }
 
 // Run GetResource And Send SQS
 func (fb *FictionBase) Run() {
 	var err error
-	fb.Message.TypeKey = "resource.Resources"
+	fb.Message.TypeKey = "fbresource"
 	fb.Message.StorageKey = "cloudwatch"
 	for {
 		time.Sleep(1 * time.Second)
