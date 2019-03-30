@@ -17,13 +17,8 @@ type Sqs struct {
 	svc  *sqs.SQS
 }
 
-func init() {
-	SetViperConfig()
-}
-
 // NewSqs Create New sqs struct
 func NewSqs() *Sqs {
-	SetViperConfig()
 	sess := session.Must(session.NewSession(&aws.Config{
 		Region: aws.String(viper.GetString("region"))},
 	))

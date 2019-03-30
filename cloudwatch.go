@@ -1,8 +1,6 @@
 package fictionbase
 
 import (
-	"fmt"
-
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/cloudwatch"
@@ -49,6 +47,8 @@ func (Cw Cw) GetCloudWatch(nameSpace string, metricName string, dimensionsName s
 			},
 		},
 	})
-	fmt.Println(err)
+	if err != nil {
+		logger.Error(err.Error())
+	}
 	return result
 }

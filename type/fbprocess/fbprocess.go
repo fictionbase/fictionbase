@@ -1,11 +1,11 @@
 package fbprocess
 
 import (
-	"fmt"
 	"time"
 
 	"github.com/fictionbase/fictionbase"
 	ps "github.com/mitchellh/go-ps"
+	"go.uber.org/zap"
 )
 
 // FictionBase struct
@@ -20,6 +20,14 @@ type Processes struct {
 	exists  bool
 }
 
+var (
+	logger *zap.Logger
+)
+
+func init() {
+	logger, _ = zap.NewProduction()
+}
+
 // Run GetResource And Send SQS
 func (fb *FictionBase) Run() {
 	fb.Message.TypeKey = "fbprocess"
@@ -28,7 +36,7 @@ func (fb *FictionBase) Run() {
 		time.Sleep(1 * time.Second)
 		pss, err := ps.Processes()
 		if err != nil {
-			fmt.Println(err)
+			logger.Error(err.Error())
 			continue
 		}
 		// @TODO from config
@@ -39,9 +47,11 @@ func (fb *FictionBase) Run() {
 				fb.Message.exists = true
 			}
 		}
+		// Set Time
+		fb.Message.TimeKey = time.Now()
 		err = fictionbase.SendFictionbaseMessage(fb)
 		if err != nil {
-			fmt.Println(err)
+			logger.Error(err.Error())
 		}
 	}
 }
