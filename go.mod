@@ -18,5 +18,6 @@ require (
 	github.com/shirou/w32 v0.0.0-20160930032740-bb4de0191aa4 // indirect
 	github.com/spf13/viper v1.3.1
 	github.com/stretchr/testify v1.2.2
+	go.uber.org/zap v1.9.1
 	golang.org/x/net v0.0.0-20190301231341-16b79f2e4e95 // indirect
 )

@@ -4,6 +4,7 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/fictionbase/fictionbase"
 	"github.com/spf13/viper"
 )
 
@@ -14,12 +15,10 @@ type FictionBase struct {
 
 // HTTP struct
 type HTTP struct {
-	TypeKey      string    `json:"type_key"`
-	StorageKey   string    `json:"storage_key"`
-	TimeKey      time.Time `json:"time_key"`
-	MonitorHTTP  string    `json:"monitor_http"`
-	Status       float64   `json:"status"`
-	ResponseTime float64   `json:"response_time"`
+	fictionbase.MessageBase
+	MonitorHTTP  string  `json:"monitor_http"`
+	Status       float64 `json:"status"`
+	ResponseTime float64 `json:"response_time"`
 }
 
 // GetResponseAndTime Get GetResponseData And GetResponseTime

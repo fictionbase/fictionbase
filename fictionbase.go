@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"github.com/spf13/viper"
+	"go.uber.org/zap"
 )
 
 // MessageBase fictionBase
@@ -13,6 +14,10 @@ type MessageBase struct {
 	StorageKey string    `json:"storage_key"`
 	TimeKey    time.Time `json:"time_key"`
 }
+
+var (
+	logger *zap.Logger
+)
 
 // SetViperConfig Set And Read ViperConfig
 func SetViperConfig() {
@@ -25,4 +30,9 @@ func SetViperConfig() {
 	viper.AddConfigPath(path)
 	viper.SetConfigName("fictionbase")
 	viper.ReadInConfig()
+}
+
+func init() {
+	SetViperConfig()
+	logger, _ = zap.NewProduction()
 }
