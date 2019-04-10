@@ -1,7 +1,6 @@
 package fbhttp
 
 import (
-	"net/http"
 	"time"
 
 	"github.com/fictionbase/fictionbase"
@@ -19,17 +18,6 @@ type HTTP struct {
 	MonitorHTTP  string  `json:"monitor_http"`
 	Status       float64 `json:"status"`
 	ResponseTime float64 `json:"response_time"`
-}
-
-// GetResponseAndTime Get GetResponseData And GetResponseTime
-func GetResponseAndTime() (*http.Response, float64, error) {
-	start := time.Now()
-	resp, err := http.Get(viper.GetString("externalMonitoring.http"))
-	if err != nil {
-		return nil, 0, err
-	}
-	elapsed := time.Since(start).Seconds()
-	return resp, elapsed, nil
 }
 
 // InitKey set FictionBase Keys
