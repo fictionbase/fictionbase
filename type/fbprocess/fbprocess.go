@@ -24,6 +24,7 @@ func (fb *FictionBase) Run() {
 	fb.Message.TypeKey = "fbprocess"
 	fb.Message.StorageKey = "cloudwatch"
 	for {
+		fictionbase.Logger.Info("fbprocess")
 		time.Sleep(1 * time.Second)
 		pss, err := ps.Processes()
 		if err != nil {
