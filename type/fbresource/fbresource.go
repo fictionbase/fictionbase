@@ -39,42 +39,43 @@ func (fb *FictionBase) Run() {
 
 		err = fictionbase.SendFictionbaseMessage(fb)
 		if err != nil {
-			fictionbase.Logger.Error(err)
+			fictionbase.Logger.Error(err.Error())
 		}
 	}
 }
 
-func getResources(fb *FictionBase) {
+func getResources(fb *FictionBase) *FictionBase {
 	var err error
 	fb.Message.Memory, err = mem.VirtualMemory()
 	if err != nil {
-		fictionbase.Logger.Error(err)
+		fictionbase.Logger.Error(err.Error())
 		fb.Message.Memory = nil
 	}
 	// CPU
 	fb.Message.CPU, err = cpu.Info()
 	if err != nil {
-		fictionbase.Logger.Error(err)
+		fictionbase.Logger.Error(err.Error())
 		fb.Message.CPU = nil
 	}
 	// LoadAvg
 	fb.Message.LoadAvg, err = load.Avg()
 	if err != nil {
-		fictionbase.Logger.Error(err)
+		fictionbase.Logger.Error(err.Error())
 		fb.Message.LoadAvg = nil
 	}
 	// Host
 	fb.Message.Host, err = host.Info()
 	if err != nil {
-		fictionbase.Logger.Error(err)
+		fictionbase.Logger.Error(err.Error())
 		fb.Message.Host = nil
 	}
 	// Disk
 	fb.Message.Disk, err = disk.Usage("/")
 	if err != nil {
-		fictionbase.Logger.Error(err)
+		fictionbase.Logger.Error(err.Error())
 		fb.Message.Disk = nil
 	}
 	// Set Time
 	fb.Message.TimeKey = time.Now()
+	return fb
 }
