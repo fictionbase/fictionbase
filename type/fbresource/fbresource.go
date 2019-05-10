@@ -32,7 +32,6 @@ func (fb *FictionBase) Run() {
 	fb.Message.TypeKey = "fbresource"
 	fb.Message.StorageKey = "cloudwatch"
 	for {
-		fictionbase.Logger.Info("fbresource")
 		time.Sleep(1 * time.Second)
 
 		fb = getResources(fb)
