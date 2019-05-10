@@ -4,7 +4,6 @@ import (
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/cloudwatch"
-	"github.com/fictionbase/fictionbase"
 	"github.com/spf13/viper"
 )
 
@@ -49,7 +48,7 @@ func (Cw Cw) GetCloudWatch(nameSpace string, metricName string, dimensionsName s
 		},
 	})
 	if err != nil {
-		fictionbase.Logger.Error(err.Error())
+		Logger.Error(err.Error())
 	}
 	return result
 }
