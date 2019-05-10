@@ -15,8 +15,8 @@ type FictionBase struct {
 // Processes struct
 type Processes struct {
 	fictionbase.MessageBase
-	process string
-	exists  bool
+	Process string `json:"process"`
+	Exists  bool   `json:"exists"`
 }
 
 // Run GetResource And Send SQS
@@ -31,11 +31,11 @@ func (fb *FictionBase) Run() {
 			continue
 		}
 		// @TODO from config multiprocess
-		fb.Message.process = "httpd"
-		fb.Message.exists = false
+		fb.Message.Process = "httpd"
+		fb.Message.Exists = true
 		for _, process := range pss {
-			if process.Executable() == fb.Message.process {
-				fb.Message.exists = true
+			if process.Executable() == fb.Message.Process {
+				fb.Message.Exists = true
 			}
 		}
 		// Set Time
