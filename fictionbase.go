@@ -35,3 +35,8 @@ func init() {
 	SetViperConfig()
 	Logger, _ = zap.NewProduction()
 }
+
+// GetLogger return zap.Logger
+func GetLogger() *zap.Logger {
+	return Logger
+}
