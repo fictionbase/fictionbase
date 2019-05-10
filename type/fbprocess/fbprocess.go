@@ -5,7 +5,6 @@ import (
 
 	"github.com/fictionbase/fictionbase"
 	ps "github.com/mitchellh/go-ps"
-	"go.uber.org/zap"
 )
 
 // FictionBase struct
@@ -20,14 +19,6 @@ type Processes struct {
 	exists  bool
 }
 
-var (
-	logger *zap.Logger
-)
-
-func init() {
-	logger, _ = zap.NewProduction()
-}
-
 // Run GetResource And Send SQS
 func (fb *FictionBase) Run() {
 	fb.Message.TypeKey = "fbprocess"
@@ -36,10 +27,10 @@ func (fb *FictionBase) Run() {
 		time.Sleep(1 * time.Second)
 		pss, err := ps.Processes()
 		if err != nil {
-			logger.Error(err.Error())
+			fictionbase.Logger.Error(err.Error())
 			continue
 		}
-		// @TODO from config
+		// @TODO from config multiprocess
 		fb.Message.process = "httpd"
 		fb.Message.exists = false
 		for _, process := range pss {
@@ -51,7 +42,7 @@ func (fb *FictionBase) Run() {
 		fb.Message.TimeKey = time.Now()
 		err = fictionbase.SendFictionbaseMessage(fb)
 		if err != nil {
-			logger.Error(err.Error())
+			fictionbase.Logger.Error(err.Error())
 		}
 	}
 }

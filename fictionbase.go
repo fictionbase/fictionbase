@@ -15,9 +15,8 @@ type MessageBase struct {
 	TimeKey    time.Time `json:"time_key"`
 }
 
-var (
-	logger *zap.Logger
-)
+// Logger zap.Logger
+var Logger *zap.Logger
 
 // SetViperConfig Set And Read ViperConfig
 func SetViperConfig() {
@@ -34,5 +33,5 @@ func SetViperConfig() {
 
 func init() {
 	SetViperConfig()
-	logger, _ = zap.NewProduction()
+	Logger, _ = zap.NewProduction()
 }

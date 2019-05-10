@@ -1,7 +1,6 @@
 package fbresource
 
 import (
-	"fmt"
 	"time"
 
 	"github.com/fictionbase/fictionbase"
@@ -34,40 +33,47 @@ func (fb *FictionBase) Run() {
 	fb.Message.StorageKey = "cloudwatch"
 	for {
 		time.Sleep(1 * time.Second)
-		// Memory
-		fb.Message.Memory, err = mem.VirtualMemory()
-		if err != nil {
-			fmt.Println(err)
-			fb.Message.Memory = nil
-		}
-		// CPU
-		fb.Message.CPU, err = cpu.Info()
-		if err != nil {
-			fb.Message.CPU = nil
-		}
-		// LoadAvg
-		fb.Message.LoadAvg, err = load.Avg()
-		if err != nil {
-			fmt.Println(err)
-			fb.Message.LoadAvg = nil
-		}
-		// Host
-		fb.Message.Host, err = host.Info()
-		if err != nil {
-			fmt.Println(err)
-			fb.Message.Host = nil
-		}
-		// Disk
-		fb.Message.Disk, err = disk.Usage("/")
-		if err != nil {
-			fmt.Println(err)
-			fb.Message.Disk = nil
-		}
-		// Set Time
-		fb.Message.TimeKey = time.Now()
+
+		fb = getResources(fb)
+
 		err = fictionbase.SendFictionbaseMessage(fb)
 		if err != nil {
-			fmt.Println(err)
+			fictionbase.Logger.Error(err)
 		}
 	}
+}
+
+func getResources(fb *FictionBase) {
+	var err error
+	fb.Message.Memory, err = mem.VirtualMemory()
+	if err != nil {
+		fictionbase.Logger.Error(err)
+		fb.Message.Memory = nil
+	}
+	// CPU
+	fb.Message.CPU, err = cpu.Info()
+	if err != nil {
+		fictionbase.Logger.Error(err)
+		fb.Message.CPU = nil
+	}
+	// LoadAvg
+	fb.Message.LoadAvg, err = load.Avg()
+	if err != nil {
+		fictionbase.Logger.Error(err)
+		fb.Message.LoadAvg = nil
+	}
+	// Host
+	fb.Message.Host, err = host.Info()
+	if err != nil {
+		fictionbase.Logger.Error(err)
+		fb.Message.Host = nil
+	}
+	// Disk
+	fb.Message.Disk, err = disk.Usage("/")
+	if err != nil {
+		fictionbase.Logger.Error(err)
+		fb.Message.Disk = nil
+	}
+	// Set Time
+	fb.Message.TimeKey = time.Now()
 }
