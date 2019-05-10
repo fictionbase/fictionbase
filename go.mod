@@ -22,9 +22,3 @@ require (
 	go.uber.org/zap v1.10.0
 	golang.org/x/net v0.0.0-20190509222800-a4d6f7feada5 // indirect
 )
-
-replace (
-	github.com/fictionbase/agent => ../agent
-	github.com/fictionbase/monitor => ../monitor
-	github.com/fictionbase/router => ../router
-)
